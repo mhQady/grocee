@@ -2,6 +2,7 @@ export default class Category {
     id = null;
     name = { ar: null, en: null };
     image = null;
+    uploadedFiles = [];
 
     constructor(categoryObj) {
 
@@ -9,6 +10,6 @@ export default class Category {
 
         this.name = { ar: categoryObj?.name_ar, en: categoryObj?.name_en }
 
-        this.image = categoryObj?.files[ 0 ];
+        this.uploadedFiles = categoryObj?.files;
     }
 }

@@ -45,7 +45,7 @@ export default [
         component: () => import('@dash/views/categories/Index.vue'),
         meta: {
             middleware: "auth",
-            title: `categories`
+            title: t('categories')
         }
     },
     {

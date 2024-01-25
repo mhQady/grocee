@@ -20,9 +20,14 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
+        $category = Category::create($request->validated());
+
+        if ($request->image)
+            Media::where('id', $request->image)->update(['model_id' => $category->id, 'model_type' => Category::class]);
+
         return response()->json([
             'message' => 'Category created successfully.',
-            'data' => new CategoryResource(Category::create($request->validated())),
+            'data' => new CategoryResource($category),
         ]);
     }
 

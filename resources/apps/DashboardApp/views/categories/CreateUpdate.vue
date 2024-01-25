@@ -27,6 +27,7 @@ onMounted(() => {
         CategoryApi.get(route.params.id)
             .then((resp) => {
                 category = Object.assign(category, new Category(resp.data.data));
+                console.log('category files', category.files);
             })
             .catch((error) => {
                 console.log(error);
@@ -68,22 +69,18 @@ async function submit() {
 </script>
 <template>
     <form @submit.prevent="submit">
-        <div class="row">
-            <div class="col-lg-6">
-                <h4>{{ route.meta.title }}</h4>
-            </div>
-            <div class="col-lg-6 text-right d-flex flex-column justify-content-center">
-                <button class="btn btn-primary bg-gradient-primary mb-0 ms-lg-auto me-lg-0 me-auto mt-lg-0 mt-2"
-                    type="submit">Save</button>
-            </div>
-        </div>
+        {{ category }}
         <div class="row mt-4">
             <div class="col-12">
                 <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0">{{ route.meta.title }}</h4>
+                        <button class="btn btn-primary bg-gradient-primary mb-0 btn-sm" type="submit">Save</button>
+                    </div>
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-4">
-                                <FileUploader v-model="category.image" :files="category?.image" />
+                                <FileUploader v-model="category.image" :uploadedFiles="category?.uploadedFiles" />
                             </div>
                             <div class="col-8">
                                 <div class="row">

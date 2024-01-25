@@ -12,6 +12,10 @@ class FileController extends Controller
 {
     public function store(Request $request)
     {
+        $request->validate([
+            'file' => ['required', 'file', 'max:2048'],
+        ]);
+
         $file = $request->file('file');
 
         $media = FileOwner::first()->addMedia($file)

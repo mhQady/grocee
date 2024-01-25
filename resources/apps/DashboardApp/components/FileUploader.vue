@@ -17,10 +17,6 @@ const props = defineProps({
     label: {
         type: String,
     },
-    name: {
-        type: String,
-        default: 'file',
-    },
     multiple: {
         type: Boolean,
         default: false,
@@ -33,28 +29,41 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
-    files: {
-        type: Object,
+    uploadedFiles: {
+        type: Array,
     }
 });
 
 
-watch(() => props.files, (file) => {
-    let url = new URL(file.url).pathname
+watch(() => props.uploadedFiles, (files) => {
 
-    pond.addFiles([
-        {
-            source: url,
-            options: {
-                type: 'local',
-            },
-        },
-    ]);
-    console.log(file.url, 'watched', pond)
+    if (files.length === 0) return;
+
+    files.forEach((file) => {
+        pond.addFiles([
+            {
+                source: new URL(file.url).pathname,
+                options: {
+                    type: 'local',
+                },
+            }
+        ])
+    })
+    // let url = new URL(file.url).pathname
+
+    // pond.addFiles([
+    //     {
+    //         source: url,
+    //         options: {
+    //             type: 'local',
+    //         },
+    //     },
+    // ]);
+    console.log('watched', files)
 })
 
 const process = (fieldName, file, metadata, load, error, progress, abort) => {
-
+    console.log('process file', fieldName, '  |  ', file);
     const formData = new FormData();
     formData.append(fieldName, file);
 
@@ -80,6 +89,7 @@ function uploadFile(data, progress, load, cancelSource) {
     })
         .then(response => {
             load(response.data.file.id)
+            console.log(response.data)
             emit('update:modelValue', response.data.file.id)
 
         }).catch((thrown) => {
@@ -88,7 +98,7 @@ function uploadFile(data, progress, load, cancelSource) {
 }
 
 const remove = (source, load, error) => {
-    console.log('dele')
+
     const parts = source.split('/');
     const id = parts[ parts.length - 2 ];
     FileApi.request({
@@ -111,7 +121,7 @@ let options = reactive({
     allowMultiple: props.multiple,
     required: props.required,
     disabled: props.disabled,
-    name: props.name,
+    name: 'file',
     server: { process, remove, load: '/' },
     credits: false,
 })
