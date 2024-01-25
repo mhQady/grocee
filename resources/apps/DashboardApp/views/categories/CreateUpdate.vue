@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'vue-router';
 import Category from '@model/Category';
 import CategoryApi from '@api/Category.api';
 import { useValidation } from "@compo/useValidation";
-import { useSwal } from "@compo/useSwal";
+import { useToast } from "@compo/useSwal";
 import { required } from '@vuelidate/validators';
 import FileUploader from '@dash/components/FileUploader.vue'
 
@@ -43,7 +43,7 @@ async function submit() {
 
     Api.then(resp => {
         router.push({ name: 'categories' });
-        useSwal().fire({
+        useToast().fire({
             icon: "success",
             title: resp.data.message
         });
@@ -56,7 +56,7 @@ async function submit() {
 
                 for (const index in error_data) {
                     if (error.response.data.errors.hasOwnProperty(error_data[ index ])) {
-                        useSwal().fire({
+                        useToast().fire({
                             icon: "error",
                             title: error.response.data.errors[ error_data[ index ] ][ 0 ]
                         });

@@ -1,6 +1,9 @@
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import i18n from "@lang";
 
-export function useSwal(rules, model) {
+const { t } = i18n.global;
+
+const useToast = (rules, model) => {
 
     return Swal.mixin({
         toast: true,
@@ -14,4 +17,27 @@ export function useSwal(rules, model) {
         }
     });
 
+}
+
+const useConfirm = () => {
+
+    return Swal.mixin({
+        title: t('are you sure?'),
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: t('confirm'),
+        cancelButtonText: t('cancel'),
+        reverseButtons: true,
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger"
+        },
+        buttonsStyling: false
+    });
+}
+
+export {
+    useToast,
+    useConfirm
 }

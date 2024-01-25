@@ -6,6 +6,8 @@ import Select from 'datatables.net-select';
 import ColReorder from 'datatables.net-colreorder';
 import RowReorder from 'datatables.net-rowreorder';
 import { useRoute, useRouter } from 'vue-router';
+import { useConfirm, useToast } from "@compo/useSwal";
+
 
 DataTable.use(DataTablesCore);
 DataTable.use(Select);
@@ -76,7 +78,7 @@ const columns = computed(() => {
                 }
 
                 if (props.enableDelete) {
-                    elements += `<a class="edit-link" href="">
+                    elements += `<a class="delete-link" href="${data}">
                                     <i class="fa-solid fa-trash text-danger"></i>
                                 </a>`;
                 }
@@ -110,13 +112,37 @@ onMounted(() => {
                     router.push(e.currentTarget.getAttribute('href'));
                 });
             });
+
+            document.querySelectorAll('.delete-link').forEach((link) => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    let id = e.currentTarget.getAttribute('href');
+
+                    useConfirm().fire().then((result) => {
+                        console.log(result);
+
+                        if (result.isConfirmed) deleteRecord(id);
+
+                    });
+                });
+            });
         });
     }
 });
 
-watch(() => route.query.page, () => {
-    // loadData();
-})
+async function deleteRecord(id) {
+    let resp = await dataApi.delete(id);
+
+    await useToast().fire({
+        icon: "success",
+        title: resp.data.message,
+    });
+}
+
+// watch(() => route.query.page, () => {
+//     loadData();
+// })
 
 function loadData(url = null) {
     loading.value = true;

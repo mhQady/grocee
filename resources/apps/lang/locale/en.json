@@ -8,6 +8,9 @@
     "products": "Products",
     "categories": "Categories",
     "upload_image": "Upload Image",
+    "are you sure?": "Are you sure?",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
     "ar": {
         "name": "Name AR",
         "slug": "Slug AR",

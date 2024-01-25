@@ -15,9 +15,6 @@ class CategoryController extends Controller
         return response()->json(['data' => Category::latest()->paginate(15)]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreCategoryRequest $request)
     {
         $category = Category::create($request->validated());
@@ -36,10 +33,6 @@ class CategoryController extends Controller
         return response()->json(['data' => new CategoryResource($category)]);
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(StoreCategoryRequest $request, Category $category)
     {
         $category->update($request->validated());
@@ -55,11 +48,14 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Category $category)
     {
-        //
+        $category->clearMediaCollection();
+
+        $category->delete();
+
+        return response()->json([
+            'message' => __('Category deleted successfully.'),
+        ]);
     }
 }

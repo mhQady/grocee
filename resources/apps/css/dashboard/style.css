@@ -112,3 +112,7 @@
     background-color: var(--clr-extra-light);
     border-bottom: 0;
 }
+
+.swal2-actions {
+    gap: 1.2rem;
+}
