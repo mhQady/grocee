@@ -1,0 +1,29 @@
+{
+    "main_info": "Main Info",
+    "price": "Price",
+    "status": "Status",
+    "name": "Name",
+    "slug": "Slug",
+    "created_at": "Created at",
+    "products": "Products",
+    "categories": "Categories",
+    "upload_image": "Upload Image",
+    "ar": {
+        "name": "Name AR",
+        "slug": "Slug AR",
+        "description": "Description AR"
+    },
+    "en": {
+        "name": "Name EN",
+        "slug": "Slug EN",
+        "description": "Description EN"
+    },
+    "create": {
+        "product": "Create Product",
+        "category": "Create Category"
+    },
+    "edit": {
+        "product": "Edit Product",
+        "category": "Edit Category"
+    }
+}

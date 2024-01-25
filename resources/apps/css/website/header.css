@@ -1,0 +1,121 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.header__logo {
+    flex: 1;
+}
+
+.header__navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: capitalize;
+    font-size: var(--size-lg);
+    gap: var(--size-2xl);
+}
+
+.header__navbar-dropmenu {
+    position: relative;
+}
+
+.header__navbar-dropbtn::after {
+    content: "\203A";
+    margin-left: 0.3em;
+    font-size: var(--size-2xl);
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.header__navbar-dropbtn:hover::after {
+    transform-origin: center;
+    transform: rotate(90deg);
+}
+
+.header__navbar-dropmenu-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--clr-light);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    padding: var(--size-xl);
+    z-index: 9;
+    display: flex;
+    gap: var(--size-2xl);
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.header__navbar-dropmenu-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-base);
+}
+
+.header__icons {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 0.4em;
+    flex: 1;
+}
+
+.header__icons>li {
+    position: relative;
+}
+
+.header__icon {
+    fill: var(--clr-light);
+    color: var(--clr-light);
+    background-color: var(--clr-green);
+    border-radius: 50%;
+    padding: 0.2em;
+    cursor: pointer;
+}
+
+.header__icon:hover {
+    background-color: var(--clr-orange);
+}
+
+.header__link {
+    position: relative;
+}
+
+.badge-count {
+    position: absolute;
+    top: -7px;
+    right: -2px;
+    color: var(--clr-dark);
+    background-color: var(--clr-light);
+    outline: 1px solid var(--clr-green);
+    border-radius: 50%;
+    font-size: var(--size-xs);
+    line-height: 1rem;
+    min-width: 16px;
+    min-height: 16px;
+    aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.badge-count:empty {
+    display: none;
+}
+
+.navbar-fixed {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 11;
+    background-color: var(--clr-light);
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease 0s;
+}

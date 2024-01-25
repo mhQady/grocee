@@ -1,0 +1,81 @@
+.card {
+    background-color: var(--clr-light);
+    border-radius: 15px;
+    box-shadow: 0 2px 22px rgba(0, 0, 0, 0.16);
+}
+
+.card-header {
+    padding: 1.1rem 1.35rem;
+}
+
+.card-body {
+    padding: 1.1rem 1.35rem;
+}
+
+input {
+    padding: 1px 2px;
+    font-size: var(--size-base);
+}
+
+input[type=email],
+input[type=password],
+input[type=text],
+input[type=tel] {
+    width: 100%;
+    border: 1px solid var(--clr-gray100);
+    padding: 0.7rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease 0s;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+input[type=checkbox]::before {
+    line-height: 0%;
+    content: "";
+    display: block;
+    line-height: 96%;
+    text-align: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 5rem;
+    border: 1px solid var(--clr-gray100);
+    border-radius: 3px;
+    background-color: #fff;
+    transition: all 0.3s ease 0s;
+}
+
+input[type="checkbox"]:checked::before {
+    content: "\2713";
+    color: var(--clr-light);
+    background-color: var(--clr-orange);
+    border-color: var(--clr-orange);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--clr-gray400);
+}
+
+input::placeholder {
+    text-transform: capitalize;
+    opacity: 0.7;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.checkbox-group {
+    display: flex;
+    gap: var(--size-xs);
+    align-items: center;
+}
+
+label {
+    text-transform: capitalize;
+}

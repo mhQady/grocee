@@ -1,0 +1,109 @@
+/*----------------- Side bar -----------------*/
+
+.icon {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    color: var(--clr-slate800);
+}
+
+/* .sidebar__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+} */
+
+.nav__link {
+    color: var(--clr-slate600);
+    text-transform: capitalize;
+    font-size: var(--size-base);
+}
+
+.nav__link.active {
+    color: var(--clr-slate800);
+    background-color: var(--clr-extra-light);
+}
+
+
+.sidebar__collapse .nav__link.active {
+    color: var(--clr-slate800);
+    background-color: unset;
+}
+
+.sidebar__collapse .nav__link:not(.nav__link .nav__link)::before {
+    content: '';
+    background-color: var(--clr-slate400);
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+}
+
+.sidebar__collapse .nav__link.active::before {
+    background-color: var(--clr-slate800);
+    height: 7px;
+    width: 7px;
+}
+
+
+.nav__link.active .icon {
+    color: var(--clr-light);
+    background-color: var(--clr-green);
+}
+
+
+.sidebar__nav .nav__item {
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+}
+
+.sidebar__nav .nav__link {
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: var(--size-xs);
+    padding: 0.7rem 0.8rem;
+    width: 100%;
+    position: relative;
+}
+
+.nav__link:hover {
+    color: currentColor;
+}
+
+.nav__item:has(.sidebar__collapse)>.nav__link:after {
+    font-size: 0.7rem;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: Font Awesome\ 6 Free;
+    font-weight: 700;
+    content: "\f107";
+    position: absolute;
+    right: 10px;
+    transition: transform 0.5s ease;
+    transform-origin: center;
+    transition: all .2s ease-in-out;
+}
+
+
+.nav__item:has(.sidebar__collapse)>.nav__link.active:after {
+    transform: rotate(-90deg);
+}
+
+.sidebar__collapse {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease 0s;
+}
+
+.sidebar__collapse.show {
+    display: block;
+    opacity: 1;
+}
+
+.card {
+    border: 0;
+    box-shadow: 0 20px 27px 0 rgba(0, 0, 0, .05);
+}

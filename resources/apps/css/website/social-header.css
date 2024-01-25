@@ -1,0 +1,36 @@
+.social-header {
+    background-color: var(--clr-orange);
+}
+
+.social-header__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--clr-light);
+    padding: 0.6em 0;
+}
+
+.social-header__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
+}
+
+.social-header__links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4em;
+}
+
+.social-header__link {
+    fill: var(--clr-light);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.social-header__link:hover {
+    fill: var(--clr-green);
+}

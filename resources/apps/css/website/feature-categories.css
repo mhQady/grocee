@@ -1,0 +1,20 @@
+.feature-categories {
+    overflow: hidden;
+    position: relative;
+}
+
+.feature-categories .swiper-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.feature-categories .swiper-slide h4 {
+    font-weight: 400;
+    margin-top: 12px;
+}
+
+.feature-categories .swiper-slide p {
+    font-size: var(--size-sm);
+    color: var(--clr-slate600);
+}

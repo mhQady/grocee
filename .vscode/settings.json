@@ -1,0 +1,8 @@
+{
+    "cSpell.words": ["Searchbuilder"],
+    "i18n-ally.localesPaths": [
+        "resources/apps/lang",
+        "resources/apps/lang/locale"
+    ],
+    "php.version": "8.2"
+}

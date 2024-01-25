@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "target": "es2022",
+        "module": "es2022",
+        "moduleResolution": "bundler",
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": ".",
+        "checkJs": false,
+        "strict": true,
+        "paths": {
+            "@/*": ["./resources/apps/*"],
+            "@img/*": ["./resources/apps/images/*"],
+            "@service/*": ["./resources/apps/services/*"],
+            "@store/*": ["./resources/apps/store/*"],
+            "@model/*": ["./resources/apps/models/*"],
+            "@plugins/*": ["./resources/apps/plugins/*"],
+            "@lang/*": ["./resources/apps/lang/*"],
+            "@api/*": ["./resources/apps/api/*"],
+            "@compo/*": ["./resources/apps/composables/*"],
+            "@web/*": ["./resources/apps/WebsiteApp/*"],
+            "@dash/*": ["./resources/apps/DashboardApp/*"]
+        }
+    },
+    "exclude": ["node_modules", "public/build"]
+}
