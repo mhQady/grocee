@@ -11,8 +11,4 @@ const router = createRouter({
 router.beforeEach(checkAuthMiddleware);
 
 
-// console.log(import.meta.env)
-
-
-
 export default router;

@@ -7,7 +7,11 @@ import Header from '@dash/components/layout/HeaderComp.vue';
     <Sidebar />
     <main class="main-container">
         <Header />
-        <RouterView></RouterView>
+        <router-view v-slot="{ Component }">
+            <transition name="fade" mode="out-in">
+                <component :is="Component" />
+            </transition>
+        </router-view>
     </main>
 </template>
 <style scoped>

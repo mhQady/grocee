@@ -4,7 +4,11 @@
         <a href="#">
             <img src="@img/website/logo.png" alt="logo">
         </a>
-        <RouterView />
+        <router-view v-slot="{ Component }">
+            <transition name="fade" mode="out-in">
+                <component :is="Component" />
+            </transition>
+        </router-view>
     </section>
 </template>
 <style scoped>

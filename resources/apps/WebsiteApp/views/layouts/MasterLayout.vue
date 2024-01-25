@@ -8,7 +8,11 @@ import Footer from '@web/components/layout/Footer.vue';
     <Header />
     <main>
 
-        <RouterView></RouterView>
+        <router-view v-slot="{ Component }">
+            <transition name="fade" mode="out-in">
+                <component :is="Component" />
+            </transition>
+        </router-view>
 
     </main>
     <Footer />

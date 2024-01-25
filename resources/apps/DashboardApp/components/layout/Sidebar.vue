@@ -32,14 +32,14 @@ function initNavBar() {
         </div>
         <hr class="sidebar__divider">
         <ul class="sidebar__nav">
-            <li class="nav__item">
+            <!-- <li class="nav__item">
                 <a href="#" class="nav__link">
                     <div class="icon shadow text-center d-flex align-items-center justify-content-center">
                         <i class="fa-solid fa-house"></i>
                     </div>
                     <span>Dashboard</span>
                 </a>
-            </li>
+            </li> -->
 
             <li class="nav__item">
                 <a href="#products-nav" data-target="products-nav" class="nav__link">
@@ -85,7 +85,7 @@ function initNavBar() {
                     </ul>
                 </div>
             </li>
-            <li class="nav__item">
+            <!-- <li class="nav__item">
                 <a href="#SecondNav" data-target="SecondNav" class="nav__link">
                     <div class="icon shadow text-center d-flex align-items-center justify-content-center">
                         <i class="fa-solid fa-house"></i>
@@ -125,7 +125,7 @@ function initNavBar() {
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li> -->
         </ul>
     </aside>
 </template>

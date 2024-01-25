@@ -12,5 +12,6 @@ export default [
         path: '/dashboard/auth',
         component: () => import('@dash/views/layouts/AuthLayout.vue'),
         children: authRoutes
-    }
+    },
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import('@dash/views/NotFound.vue') },
 ];
