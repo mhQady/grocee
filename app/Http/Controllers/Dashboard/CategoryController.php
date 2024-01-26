@@ -6,13 +6,18 @@ use App\Models\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
 use App\Http\Requests\StoreCategoryRequest;
+use App\Repositories\Contracts\CategoryContract;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class CategoryController extends Controller
 {
+    public function __construct(protected CategoryContract $categoryRepo)
+    {
+    }
+
     public function index()
     {
-        return response()->json(['data' => Category::latest()->paginate(15)]);
+        return response()->json(['data' => $this->categoryRepo->search()]);
     }
 
     public function store(StoreCategoryRequest $request)
