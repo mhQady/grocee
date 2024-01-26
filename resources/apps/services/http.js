@@ -23,7 +23,7 @@ class Http {
         });
 
         // this.interceptRequests();
-        // this.interceptResponse();
+        this.interceptResponse();
     }
 
     get client() {
@@ -122,12 +122,12 @@ class Http {
                 //     // NProgress.done();
                 // }
 
-                if (_.has(response, 'data.status') && response.data.status != 200) {
-                    response.status = response.data.status;
-                    let res = _.cloneDeep(response);
-                    res = _.set(res, 'status', res.data.status);
-                    return this.errorResponseHandler(res);
-                }
+                // if (_.has(response, 'data.status') && response.data.status != 200) {
+                //     response.status = response.data.status;
+                //     let res = _.cloneDeep(response);
+                //     res = _.set(res, 'status', res.data.status);
+                //     return this.errorResponseHandler(res);
+                // }
 
                 // Return axios response
                 return response
@@ -154,9 +154,9 @@ class Http {
             // Redirect to login at 401 (Unauthenticated user error)
             if (statusCode == 401) {
                 Storage.clean();
-                useUserStore().$reset();
-                userAdminStore().$reset();
-
+                // useUserStore().$reset();
+                useAdminStore().$reset();
+                console.log('alive');
                 if (router.currentRoute.value.name == 'login') {
                     // Vue.prototype.$snotify.error(error.response.data.error);
                     return false;

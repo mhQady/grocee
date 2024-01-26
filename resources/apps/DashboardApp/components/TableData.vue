@@ -134,10 +134,16 @@ onMounted(() => {
 async function deleteRecord(id) {
     let resp = await dataApi.delete(id);
 
+    data.value.total = data.value.total - 1;
+    data.value.to = data.value.to - 1;
+
+    data.value.data = data.value.data.filter((item) => item.id != id)
+
     await useToast().fire({
         icon: "success",
         title: resp.data.message,
     });
+
 }
 
 // watch(() => route.query.page, () => {

@@ -14,7 +14,6 @@ function initNavBar() {
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log(route.name, route.name?.startsWith('products'));
             let target = link.dataset.target;
 
             if (target) {
