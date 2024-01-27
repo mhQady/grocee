@@ -17,10 +17,10 @@ class CategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-
-            'name' => $this->name,
-            'name_ar' => $this->getTranslation('name', 'ar'),
-            'name_en' => $this->getTranslation('name', 'en'),
+            'name' => [
+                'ar' => $this->getTranslation('name', 'ar'),
+                'en' => $this->getTranslation('name', 'en'),
+            ],
             'files' => FileResource::collection($this->getMedia())
         ];
     }

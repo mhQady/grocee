@@ -63,5 +63,5 @@ interface BaseContract
      *
      * @return LengthAwarePaginator
      */
-    public function paginate($items, $perPage = 15, $page = null, $options = []);
+    // public function paginate($items, $perPage = 15, $page = null, $options = []);
 }

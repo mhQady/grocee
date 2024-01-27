@@ -96,10 +96,6 @@ abstract class BaseRepository implements BaseContract
             $query = $query->orderBy($orderBy, $orderDir);
         }
 
-        if (config('app.query_debug')) {
-            return $query->toSql();
-        }
-
         if ($page) {
             return $query->paginate($limit);
         }
@@ -109,22 +105,5 @@ abstract class BaseRepository implements BaseContract
         }
 
         return $query->get();
-    }
-
-    /**
-     * Create a Pagination From Items Of  array Or collection.
-     *
-     * @param array|Collection $items
-     * @param int $perPage
-     * @param int $page
-     * @param array $options
-     *
-     * @return LengthAwarePaginator
-     */
-    public function paginate($items, $perPage = 15, $page = null, $options = [])
-    {
-        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 }

@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\ApiBaseController;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Http\Requests\StoreProductRequest;
+use App\Repositories\Contracts\ProductContract;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class ProductController extends Controller
+class ProductController extends ApiBaseController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct(protected ProductContract $productRepo)
     {
-        return response()->json(['data' => Product::latest()->paginate(15)]);
+        parent::__construct($productRepo, ProductResource::class);
     }
 
     public function store(StoreProductRequest $request)

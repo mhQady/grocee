@@ -19,9 +19,10 @@ Route::get('auth/admin', function (Request $request) {
 
 Route::middleware('auth:admin')->group(function () {
     Route::post('logout', [LoginController::class, 'logout']);
-
     Route::apiResources([
         'products' => ProductController::class,
         'categories' => CategoryController::class,
     ]);
+
 });
+

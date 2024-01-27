@@ -170,11 +170,9 @@ function loadData(url = null) {
     dataApi.index({
         page
     }).then((response) => {
-        data.value = response.data.data;
-
-        myTable.value?.dt?.page?.len(response.data.data.per_page)
-        // console.log(myTable.value.dt);
-        myTable.value.dt.draw();
+        data.value = response.data;
+        myTable.value?.dt?.page?.len(data.value.meta.per_page)
+        myTable.value?.dt.draw();
     })
         .finally(() => {
             loading.value = false;
@@ -188,11 +186,12 @@ function loadData(url = null) {
         </DataTable>
         <div class="d-flex justify-content-between py-2">
             <span>
-                {{ "showing" + data.from + " to " + data.to + " of " + data.total + " records" }}
+                {{ "showing" + data.meta?.from + " to " + data.meta?.to + " of " + data.meta?.total + " records" }}
             </span>
             <div class="data-paginator">
-                <button v-for="(link, index) in data?.links" :class="{ 'active': link.active }" @click="loadData(link.url)"
-                    :disabled="(data?.prev_page_url === null && index === 0) || (data?.next_page_url === null && index === data?.links.length - 1) || link.active">
+                <button v-for="(link, index) in data.meta?.links" :class="{ 'active': link.active }"
+                    @click="loadData(link.url)"
+                    :disabled="(data?.meta.prev_page_url === null && index === 0) || (data?.meta.next_page_url === null && index === data?.meta.links.length - 1) || link.active">
                     <i v-if="index === 0" class="fa-solid fa-backward"></i>
                     <i v-else-if="index === data?.links.length - 1" class="fa-solid fa-forward"></i>
                     <span v-else v-html="link.label"></span>

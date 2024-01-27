@@ -2,22 +2,18 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\ApiBaseController;
 use App\Models\Category;
-use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Repositories\Contracts\CategoryContract;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class CategoryController extends Controller
+class CategoryController extends ApiBaseController
 {
     public function __construct(protected CategoryContract $categoryRepo)
     {
-    }
-
-    public function index()
-    {
-        return response()->json(['data' => $this->categoryRepo->search()]);
+        parent::__construct($categoryRepo, CategoryResource::class);
     }
 
     public function store(StoreCategoryRequest $request)
