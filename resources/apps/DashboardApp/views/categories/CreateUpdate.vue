@@ -27,7 +27,6 @@ onMounted(() => {
         CategoryApi.get(route.params.id)
             .then((resp) => {
                 category = Object.assign(category, new Category(resp.data.data));
-                console.log('category files', category.files);
             })
             .catch((error) => {
                 console.log(error);
@@ -69,7 +68,6 @@ async function submit() {
 </script>
 <template>
     <form @submit.prevent="submit">
-        {{ category }}
         <div class="row mt-4">
             <div class="col-12">
                 <div class="card h-100">

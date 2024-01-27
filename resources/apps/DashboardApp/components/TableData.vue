@@ -171,6 +171,7 @@ function loadData(url = null) {
         page
     }).then((response) => {
         data.value = response.data;
+        console.log(data.value);
         myTable.value?.dt?.page?.len(data.value.meta.per_page)
         myTable.value?.dt.draw();
     })

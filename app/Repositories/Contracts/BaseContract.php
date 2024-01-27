@@ -35,6 +35,13 @@ interface BaseContract
     );
 
     /**
+     * @param array $data
+     */
+    public function create(array $data);
+
+    public function retrieve(string $key = 'id', string|int $value);
+
+    /**
      * @param $query
      * @param bool $applyOrder
      * @param bool $page

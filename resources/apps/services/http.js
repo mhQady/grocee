@@ -165,7 +165,7 @@ class Http {
                 console.info('Redirect to login');
                 // console.info(router.push({ path: '/login' }));
                 router.push({
-                    path: '/login'
+                    name: 'login'
                 });
                 // return window.location.href = '/login';
                 return Promise.reject(error);

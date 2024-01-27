@@ -6,10 +6,10 @@ export default class Category {
 
     constructor(categoryObj) {
 
-        this.id = categoryObj?.id;
-
-        this.name = { ar: categoryObj?.name_ar, en: categoryObj?.name_en }
-
-        this.uploadedFiles = categoryObj?.files;
+        if (categoryObj) {
+            this.id = categoryObj?.id;
+            this.name = { ar: categoryObj?.name?.ar, en: categoryObj?.name?.en };
+            this.uploadedFiles = categoryObj?.files;
+        }
     }
 }

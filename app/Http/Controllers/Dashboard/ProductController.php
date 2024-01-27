@@ -19,8 +19,7 @@ class ProductController extends ApiBaseController
 
     public function store(StoreProductRequest $request)
     {
-        // return response()->json(['message' => 'Product created successfully.', 'product' => $request->all()]);
-        $product = Product::create($request->validated());
+        $product = $this->productRepo->create($request->validated());
 
         if ($request->has('image')) {
             Media::find($request->image)->update([
@@ -30,7 +29,6 @@ class ProductController extends ApiBaseController
         }
 
         return response()->json(['message' => 'Product created successfully.', 'product' => $product]);
-
     }
 
     /**

@@ -18,7 +18,7 @@ class CategoryController extends ApiBaseController
 
     public function store(StoreCategoryRequest $request)
     {
-        $category = Category::create($request->validated());
+        $category = $this->categoryRepo->create($request->validated());
 
         if ($request->image)
             Media::where('id', $request->image)->update(['model_id' => $category->id, 'model_type' => Category::class]);
@@ -29,9 +29,10 @@ class CategoryController extends ApiBaseController
         ]);
     }
 
-    public function show(Category $category)
+    public function show($id)
     {
-        return response()->json(['data' => new CategoryResource($category)]);
+        return $this->respondWithModel(new CategoryResource($this->categoryRepo->retrieve('id', $id)));
+        // return response()->json(['data' => ]);
     }
 
     public function update(StoreCategoryRequest $request, Category $category)

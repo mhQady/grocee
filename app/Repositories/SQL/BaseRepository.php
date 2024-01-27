@@ -2,45 +2,19 @@
 
 namespace App\Repositories\SQL;
 
-use Illuminate\Support\Collection;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
-use App\Exceptions\CantDeleteModelException;
 use App\Repositories\Contracts\BaseContract;
-use Illuminate\Pagination\LengthAwarePaginator;
+
 
 abstract class BaseRepository implements BaseContract
 {
-    protected $model;
-
     protected $defaultFilters = [];
 
-    /**
-     * BaseRepository constructor.
-     * @param Model $model
-     */
-    public function __construct(Model $model)
+    public function __construct(protected Model $model)
     {
-        $this->model = $model;
     }
 
-    /**
-     * @param array $filters
-     * @param array $relations
-     * @param bool $applyOrder
-     * @param bool $page
-     * @param int $limit
-     * @param string $orderBy
-     * @param string $orderDir
-     * @param array $conditions
-     * @param bool $customizePaginationURI
-     * @param null $paginationURI
-     * @param null $orderBy2
-     * @param null $orderDir2
-     * @param bool $trashed
-     *
-     * @return mixed
-     */
+
     public function search(
         $filters = [],
         $relations = [],
@@ -70,20 +44,15 @@ abstract class BaseRepository implements BaseContract
         return $this->getQueryResult($query, $applyOrder, $page, $limit, $orderBy, $orderDir);
     }
 
-    /**
-     * @param $query
-     * @param bool $applyOrder
-     * @param bool $page
-     * @param int $limit
-     * @param string $orderBy
-     * @param string $orderDir
-     * @param bool $customizePaginationURI
-     * @param null $paginationURI
-     * @param null $orderBy2
-     * @param null $orderDir2
-     *
-     * @return mixed
-     */
+    public function create(array $data)
+    {
+        return $this->model->create($data);
+    }
+    public function retrieve(string $key = 'id', string|int $value)
+    {
+        return $this->model->where($key, $value)->first();
+    }
+
     public function getQueryResult(
         $query,
         $applyOrder = true,
