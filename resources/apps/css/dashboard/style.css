@@ -118,21 +118,14 @@
 }
 
 .avatar {
-    color: #fff;
-    /* display: inline-flex;
-    align-items: center;
-    justify-content: center; */
-    font-size: 1rem;
-    border-radius: .75rem;
-    height: 48px;
-    width: 48px;
-    transition: all .2s ease-in-out;
-
+    height: 60px;
+    width: 60px;
 }
 
 .avatar img {
     border-radius: .75rem;
     width: 100%;
+    height: 100%;
     object-fit: cover;
     object-position: 50% 50%;
 }

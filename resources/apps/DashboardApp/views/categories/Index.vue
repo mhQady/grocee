@@ -1,5 +1,6 @@
 <script setup>
 import CategoryApi from '@api/Category.api';
+import DefaultImg from '@img/categories.png';
 
 import TableData from '@dash/components/TableData.vue';
 
@@ -8,7 +9,7 @@ const columns = [
         data: 'files',
         render: (data) => {
 
-            let url = data.length > 0 ? data[ 0 ].url : '';
+            let url = data.length > 0 ? data[ 0 ].url : DefaultImg;
 
             return `<div class="avatar">
                         <img src="${url}" alt="">
