@@ -6,24 +6,17 @@ export default class Product {
     status = null;
     price = 0;
     image = null;
+    category_id = null;
 
     constructor(productObj) {
-
         this.id = productObj?.id;
-
-        this.name = { ar: productObj?.name_ar, en: productObj?.name_en }
-
-        this.slug.en = productObj?.slug_ar;
-        this.slug.ar = productObj?.slug_ar;
-
+        this.name = { ar: productObj?.name?.ar, en: productObj?.name?.en };
+        this.slug = { ar: productObj?.slug?.ar, en: productObj?.slug?.en };
+        this.description = { ar: productObj?.description?.ar, en: productObj?.description?.en };
         this.status = productObj?.status ?? 1;
-
-        this.description.ar = productObj?.description_ar;
-        this.description.en = productObj?.description_ar;
-
         this.price = productObj?.price ?? 0;
-
         this.image = productObj?.file[ 0 ];
+        this.category_id = productObj?.category_id;
     }
 
     static getStatuses() {

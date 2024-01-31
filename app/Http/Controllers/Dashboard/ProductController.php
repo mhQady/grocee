@@ -36,7 +36,9 @@ class ProductController extends ApiBaseController
      */
     public function show(Product $product)
     {
-        return response()->json(['product' => new ProductResource($product)]);
+        return $this->respondWithSuccess(
+            data: ['product' => new ProductResource($product->fresh())]
+        );
     }
 
     /**
@@ -46,7 +48,7 @@ class ProductController extends ApiBaseController
     {
         $product->update($request->validated());
 
-        return response()->json(['message' => 'Product updated successfully.', 'product' => $product->fresh()]);
+        return $this->respondWithSuccess('Product updated successfully.', ['product' => $product->fresh()]);
     }
 
     /**

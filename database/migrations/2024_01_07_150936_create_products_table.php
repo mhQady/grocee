@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->json('name');
             $table->json('slug');
             $table->unsignedTinyInteger('status')->default(ProductStatusEnum::PUBlISHED->value);
+            $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->json('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->timestamps();

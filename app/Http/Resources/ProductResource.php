@@ -23,19 +23,21 @@ class ProductResource extends JsonResource
                 'en' => $this->getTranslation('name', 'en'),
             ],
 
-            'slug' => $this->slug,
-            'slug_ar' => $this->getTranslation('slug', 'ar'),
-            'slug_en' => $this->getTranslation('slug', 'en'),
+            'slug' => [
+                'ar' => $this->getTranslation('slug', 'ar'),
+                'en' => $this->getTranslation('slug', 'en'),
+            ],
 
-
-            'description' => $this->description,
-            'description_ar' => $this->getTranslation('description', 'ar'),
-            'description_en' => $this->getTranslation('description', 'en'),
+            'description' => [
+                'ar' => $this->getTranslation('description', 'ar'),
+                'en' => $this->getTranslation('description', 'en'),
+            ],
 
             'price' => $this->price,
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'category_id' => $this->category_id,
 
             'file' => FileResource::collection($this->getMedia()),
         ];

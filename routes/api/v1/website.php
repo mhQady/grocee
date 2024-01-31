@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Website\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\Website\Auth\LoginController;
@@ -18,5 +19,6 @@ Route::middleware('auth:web')->group(function () {
     Route::post('logout', [LoginController::class, 'logout']);
 });
 
-
+Route::get('/home', HomeController::class);
+;
 Route::apiResource('files', FileController::class)->only(['store', 'show', 'destroy']);
