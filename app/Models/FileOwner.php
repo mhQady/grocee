@@ -11,4 +11,6 @@ class FileOwner extends Model implements HasMedia
     use InteractsWithMedia;
 
     protected $table = 'file_owner';
+
+    protected $fillable = ['name'];
 }

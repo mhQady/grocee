@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Website\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
@@ -19,6 +20,6 @@ Route::middleware('auth:web')->group(function () {
     Route::post('logout', [LoginController::class, 'logout']);
 });
 
-Route::get('/home', HomeController::class);
+Route::get('categories/feature', [CategoryController::class, 'getFeatureCategories']);
 ;
 Route::apiResource('files', FileController::class)->only(['store', 'show', 'destroy']);

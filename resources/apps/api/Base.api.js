@@ -1,4 +1,4 @@
-import Http from "@service/http"
+import Http from "@service/http";
 
 export default class BaseApi {
     static get entity() {

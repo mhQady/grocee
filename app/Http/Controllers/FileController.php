@@ -18,7 +18,7 @@ class FileController extends Controller
 
         $file = $request->file('file');
 
-        $media = FileOwner::first()->addMedia($file)
+        $media = FileOwner::firstOrCreate(['name' => 'owner'])->addMedia($file)
             ->toMediaCollection();
 
         return response()->json([

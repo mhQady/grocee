@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\ApiBaseController;
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 use App\Http\Resources\CategoryResource;
+use App\Http\Controllers\ApiBaseController;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Repositories\Contracts\CategoryContract;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -58,6 +59,26 @@ class CategoryController extends ApiBaseController
 
         return response()->json([
             'message' => __('Category deleted successfully.'),
+        ]);
+    }
+
+    public function getFeatureCategories()
+    {
+        $featureCategories = DB::select('
+        SELECT categories.id, JSON_UNQUOTE(JSON_EXTRACT(categories.name, "$.' . app()->getLocale() . '")) as name, COUNT(products.id) as products_count, media.id as image_id, media.file_name as image_name
+        FROM categories
+        LEFT JOIN products ON categories.id = products.category_id
+        LEFT JOIN (
+            SELECT * FROM media WHERE media.model_type = "App\\\Models\\\Category"
+        ) as media ON categories.id = media.model_id
+        GROUP BY categories.id, categories.name, media.id
+        ORDER BY products_count DESC
+        LIMIT 15
+    ');
+
+
+        return response()->json(data: [
+            'feature_categories' => $featureCategories,
         ]);
     }
 }
