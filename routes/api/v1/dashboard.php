@@ -6,7 +6,7 @@ use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\Auth\LoginController;
 
 Route::middleware('guest:sanctum')->group(function () {
-    Route::post('login', [LoginController::class, 'login']);
+    Route::post('dashboard/login', [LoginController::class, 'login']);
 });
 
 Route::middleware('auth:admin')->get('/user', function () {
