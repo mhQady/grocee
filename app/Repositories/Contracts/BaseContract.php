@@ -22,6 +22,7 @@ interface BaseContract
      * @param int $limit
      * @param string $orderBy
      * @param string $orderDir
+     * @param array $fields
      * @return mixed
      */
     public function search(
@@ -31,7 +32,8 @@ interface BaseContract
         $page = true,
         $limit = self::LIMIT,
         $orderBy = self::ORDER_BY,
-        $orderDir = self::ORDER_DIR
+        $orderDir = self::ORDER_DIR,
+        array $fields = []
     );
 
     /**

@@ -21,8 +21,8 @@ class ProductFactory extends Factory
     {
         return [
             'name' => [
-                'ar' => fake()->sentence,
-                'en' => fake()->sentence,
+                'ar' => fake()->word,
+                'en' => fake()->word,
             ],
             'slug' => [
                 'ar' => Str::slug(fake()->slug),

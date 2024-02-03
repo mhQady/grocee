@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\ApiBaseController;
 use App\Models\Product;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Controllers\ApiBaseController;
 use App\Repositories\Contracts\ProductContract;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -57,5 +59,21 @@ class ProductController extends ApiBaseController
     public function destroy(Product $product)
     {
         //
+    }
+
+    public function getLatestProducts(Request $request)
+    {
+        $products = $this->productRepo->search(
+            filters: ['categoryBelong' => $request->category],
+            relations: ['mainImage'],
+            page: false,
+            fields: ['id', 'name'],
+            orderBy: 'created_at',
+            limit: 6
+        );
+
+        return $this->respondWithSuccess(data: [
+            'products' => ProductResource::collection($products)
+        ]);
     }
 }

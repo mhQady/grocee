@@ -14,6 +14,8 @@
     "cancel": "Cancel",
     "image": "Image",
     "feature_categories": "Feature Categories",
+    "new_arrivals": "New Arrivals",
+    "all": "All",
     "ar": {
         "name": "Name AR",
         "slug": "Slug AR",

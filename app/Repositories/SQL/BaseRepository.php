@@ -23,7 +23,7 @@ abstract class BaseRepository implements BaseContract
         $limit = self::LIMIT,
         $orderBy = self::ORDER_BY,
         $orderDir = self::ORDER_DIR,
-        $trashed = false
+        array $fields = []
     ) {
         $query = $this->model;
 
@@ -41,7 +41,7 @@ abstract class BaseRepository implements BaseContract
             }
         }
 
-        return $this->getQueryResult($query, $applyOrder, $page, $limit, $orderBy, $orderDir);
+        return $this->getQueryResult($query, $applyOrder, $page, $limit, $orderBy, $orderDir, $fields);
     }
 
     public function create(array $data)
@@ -59,8 +59,14 @@ abstract class BaseRepository implements BaseContract
         $page = true,
         $limit = self::LIMIT,
         $orderBy = self::ORDER_BY,
-        $orderDir = self::ORDER_DIR
+        $orderDir = self::ORDER_DIR,
+        array $fields = []
     ) {
+
+        if (!empty($fields))
+            $query = $query->select($fields);
+
+
         if ($applyOrder) {
             $query = $query->orderBy($orderBy, $orderDir);
         }

@@ -133,7 +133,7 @@ class ApiBaseController extends Controller
         return $this->setStatusCode($statusCode)->respond($resource, $headers);
     }
 
-    protected function respondWithSuccess($message = 'messages.success', $data = [])
+    protected function respondWithSuccess($message = 'success', $data = [])
     {
         $response = [
             'status' => Response::HTTP_OK,

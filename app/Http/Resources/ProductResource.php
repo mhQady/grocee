@@ -39,7 +39,8 @@ class ProductResource extends JsonResource
             'updated_at' => $this->updated_at,
             'category_id' => $this->category_id,
 
-            'file' => FileResource::collection($this->getMedia()),
+            'main_image' => new FileResource($this->whenLoaded('mainImage')),
+            'file' => FileResource::collection($this->whenLoaded('media')),
         ];
     }
 }

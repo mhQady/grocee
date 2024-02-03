@@ -10,7 +10,7 @@ import 'swiper/css/autoplay';
 import 'swiper/css/navigation';
 
 let categories = reactive({});
-const baseUrl = window.location.origin;
+const baseUrl = `${window.location.origin}/storage`;
 const breakpoints = {
     1200: { slidesPerView: 6 },
     992: { slidesPerView: 5 },
@@ -22,7 +22,6 @@ const breakpoints = {
 
 onMounted(() => {
     CategoryApi.getFeatureCategories().then((resp) => {
-        console.log(resp.data.feature_categories);
         categories = Object.assign(categories, resp.data.feature_categories);
     });
 })
@@ -38,7 +37,7 @@ onMounted(() => {
             <swiper-slide v-for="category in categories  " :key="category.id">
                 <div class="img-wrapper">
                     <img class=""
-                        :src="category.image_id ? `${baseUrl}/storage/${category.image_id}/${category.image_name}` : DefaultImg"
+                        :src="category.image_id ? `${baseUrl}/${category.image_id}/${category.image_name}` : DefaultImg"
                         :alt="category.name">
                 </div>
                 <h4>
@@ -61,7 +60,6 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* height: 165.5px;*/
 }
 
 .feature-categories .swiper-slide h4 {
