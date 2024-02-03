@@ -5,15 +5,11 @@ import Category from './../models/Category';
 export default class Product extends BaseApi {
 
     static get entity() {
-        return 'dashboard/products'
+        return 'products'
     }
 
-    // static async index(params = null) {
-    //     return await Http.get(`dashboard/products`, params)
-    // }
-
     static async getLatest(categoryId = '') {
-        return await Http.get(`products/latest/${categoryId}`)
+        return await Http.get(`${this.entity}/latest/${categoryId}`)
     }
 
 }

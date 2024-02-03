@@ -19,7 +19,8 @@ class Product extends Model implements HasMedia
     protected $guarded = ['id'];
 
     protected $casts = [
-        'status' => ProductStatusEnum::class
+        'status' => ProductStatusEnum::class,
+        'sale_ends_at' => 'datetime'
     ];
     public $filters = ['categoryBelong'];
     public $translatable = ['name', 'slug', 'description'];
@@ -33,6 +34,13 @@ class Product extends Model implements HasMedia
     {
         if ($categoryId)
             return $query->where('category_id', $categoryId);
+
+        return $query;
+    }
+    public function scopeOfStatus($query, $status = null)
+    {
+        if ($status)
+            return $query->where('status', $status);
 
         return $query;
     }

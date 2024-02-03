@@ -354,3 +354,16 @@ h5 {
 .fade-leave-active {
     transition: opacity 0.5s ease-out;
 }
+
+.form-label,
+label {
+    font-size: .75rem;
+    font-weight: 700;
+    margin-bottom: .5rem;
+    color: #344767;
+    margin-left: .25rem;
+}
+
+.form-group {
+    margin-bottom: 0.8rem;
+}

@@ -34,6 +34,8 @@ class ProductResource extends JsonResource
             ],
 
             'price' => $this->price,
+            'old_price' => $this->old_price,
+            'sale_ends_at' => $this->sale_ends_at,
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import Product from '@model/Product';
 import ProductApi from '@api/Product.api';
@@ -10,6 +10,7 @@ import { required } from '@vuelidate/validators';
 import FileUploader from '@dash/components/FileUploader.vue'
 
 const route = useRoute();
+const moment = inject('moment');
 const router = useRouter();
 const isUpdateForm = !!route.params.id;
 let product = reactive(new Product);
@@ -29,6 +30,8 @@ const rules = {
         en: { required }
     },
     price: { required },
+    old_price: {},
+    sale_ends_at: {},
     status: { required }
 }
 
@@ -44,6 +47,7 @@ onMounted(() => {
     if (isUpdateForm) {
         ProductApi.get(route.params.id)
             .then((resp) => {
+                console.log(resp.data.data.product);
                 product = Object.assign(product, new Product(resp.data.data.product));
             })
             .catch((error) => {
@@ -55,6 +59,7 @@ onMounted(() => {
 async function submit() {
 
     // if (!await v$.value.$validate()) return;
+
 
     console.log('validated');
 
@@ -97,25 +102,13 @@ async function submit() {
                     type="submit">Save</button>
             </div>
         </div>
-        {{ product }}
         <div class="row mt-4">
-            <div class="col-lg-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="font-weight-bolder">Product Image</h5>
-                        <div class="row">
-                            <div class="col-12">
-                                <!-- <FilePond v-model="product.image" :files="product?.image" /> -->
-                                <FileUploader v-model="product.image" :files="product?.image" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8 mt-lg-0 mt-4">
+            <div class="col-lg-7">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-header">
                         <h5 class="font-weight-bolder text-capitalize">{{ $t('main_info') }}</h5>
+                    </div>
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
@@ -127,14 +120,14 @@ async function submit() {
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6">
-                                <label>{{ $t('en.name') }}</label>
-                                <input class="form-control" type="text" v-model="product.name.en">
-                                <div class="text text-danger" v-if="v$.name.en.$error">
-                                    {{ v$.name.en.$errors[0].$message }}
+                                <div class="form-group">
+                                    <label>{{ $t('en.name') }}</label>
+                                    <input class="form-control" type="text" v-model="product.name.en">
+                                    <div class="text text-danger" v-if="v$.name.en.$error">
+                                        {{ v$.name.en.$errors[0].$message }}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label>{{ $t('ar.slug') }}</label>
@@ -145,25 +138,17 @@ async function submit() {
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6">
-                                <label>{{ $t('en.slug') }}</label>
-                                <input class="form-control" type="text" v-model="product.slug.en">
-                                <div class="text text-danger" v-if="v$.slug.en.$error">
-                                    {{ v$.slug.en.$errors[0].$message }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label class="mt-4">{{ $t('price') }}</label>
-                                <input class="form-control" type="number" v-model.number="product.price" min="0.0"
-                                    step=".01">
-                                <div class="text text-danger" v-if="v$.price.$error">
-                                    {{ v$.price.$errors[0].$message }}
+                                <div class="form-group">
+                                    <label>{{ $t('en.slug') }}</label>
+                                    <input class="form-control" type="text" v-model="product.slug.en">
+                                    <div class="text text-danger" v-if="v$.slug.en.$error">
+                                        {{ v$.slug.en.$errors[0].$message }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label class="mt-4">{{ $t('status') }}</label>
+                                    <label>{{ $t('status') }}</label>
                                     <select v-model="product.status" class="form-select">
                                         <option v-for="status in Product.getStatuses()" :value="status.value">
                                             {{ status.label }}</option>
@@ -173,11 +158,9 @@ async function submit() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label class="mt-4">{{ $t('category') }}</label>
+                                    <label>{{ $t('category') }}</label>
                                     <select v-model="product.category_id" class="form-select">
                                         <option v-for="category in categories" :value="category.id">
                                             {{ category.name.ar }}
@@ -188,8 +171,6 @@ async function submit() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label>{{ $t('ar.description') }}</label>
@@ -200,10 +181,65 @@ async function submit() {
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6">
-                                <label>{{ $t('en.description') }}</label>
-                                <textarea class="form-control" type="text" v-model="product.description.en"></textarea>
-                                <div class="text text-danger" v-if="v$.description.en.$error">
-                                    {{ v$.description.en.$errors[0].$message }}
+                                <div class="form-group">
+                                    <label>{{ $t('en.description') }}</label>
+                                    <textarea class="form-control" type="text" v-model="product.description.en"></textarea>
+                                    <div class="text text-danger" v-if="v$.description.en.$error">
+                                        {{ v$.description.en.$errors[0].$message }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 mt-lg-0 mt-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="font-weight-bolder">Product Image</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <FileUploader v-model="product.image" :files="product?.image" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5 class="font-weight-bolder">Pricing</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>{{ $t('price') }}</label>
+                                    <input class="form-control" type="number" v-model.number="product.price" min="0.0"
+                                        step=".01">
+                                    <div class="text text-danger" v-if="v$.price.$error">
+                                        {{ v$.price.$errors[0].$message }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>{{ $t('old_price') }}</label>
+                                    <input class="form-control" type="number" v-model.number="product.old_price" min="0.0"
+                                        step=".01">
+                                    <div class="text text-danger" v-if="v$.old_price.$error">
+                                        {{ v$.old_price.$errors[0].$message }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ $t('sale_ends_at') }}</label>
+                                    <input class="form-control" type="datetime-local" step="300"
+                                        v-model.date="product.sale_ends_at" :min="moment().format('YYYY-MM-DD HH:mm')">
+                                    <div class="text text-danger" v-if="v$.sale_ends_at.$error">
+                                        {{ v$.sale_ends_at.$errors[0].$message }}
+                                    </div>
                                 </div>
                             </div>
                         </div>

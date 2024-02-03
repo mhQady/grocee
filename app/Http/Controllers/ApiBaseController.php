@@ -36,14 +36,13 @@ class ApiBaseController extends Controller
         $order = 'id',
         $orderDir = "desc",
         $applyOrder = false,
-        $trashed = false,
+        $fields = [],
     ) {
         // $page = 1;
         // $limit = 10;
         // $order = 'id';
         // $orderDir = "desc";
         // $applyOrder = false;
-        // $trashed = false;
 
         $filters = request()->all();
 
@@ -67,10 +66,6 @@ class ApiBaseController extends Controller
             $orderDir = request('orderDir');
         }
 
-        if (request()->has('trashed')) {
-            $trashed = (bool) request('trashed');
-        }
-
         $models = $this->repo->search(
             $filters,
             $this->relations,
@@ -79,7 +74,7 @@ class ApiBaseController extends Controller
             $limit,
             $order,
             $orderDir,
-            $trashed
+            $fields
         );
 
         return $this->respondWithCollection($models);

@@ -16,6 +16,8 @@
     "feature_categories": "Feature Categories",
     "new_arrivals": "New Arrivals",
     "all": "All",
+    "sale_ends_at": "Sale Ends At",
+    "old_price": "Old Price",
     "ar": {
         "name": "Name AR",
         "slug": "Slug AR",

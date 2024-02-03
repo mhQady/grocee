@@ -28,8 +28,10 @@ class StoreProductRequest extends FormRequest
             'slug.*' => ['required', 'string'],
             'description' => ['nullable', 'array'],
             'description.*' => ['nullable', 'string'],
-            'price' => ['required', 'numeric'],
             'category_id' => ['nullable', 'exists:categories,id'],
+            'price' => ['required', 'numeric', 'min:0'],
+            'old_price' => ['nullable', 'numeric', 'min:0'],
+            'sale_ends_at' => ['nullable', 'date', 'after:now'],
             'image' => ['nullable', 'numeric'],
         ];
     }

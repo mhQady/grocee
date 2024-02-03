@@ -5,6 +5,7 @@ export default class Product {
     description = { ar: null, en: null };
     status = null;
     price = 0;
+    old_price = 0;
     image = null;
     category_id = null;
 
@@ -15,7 +16,8 @@ export default class Product {
         this.description = { ar: productObj?.description?.ar, en: productObj?.description?.en };
         this.status = productObj?.status ?? 1;
         this.price = productObj?.price ?? 0;
-        this.image = productObj?.file[ 0 ];
+        this.old_price = productObj?.old_price ?? 0;
+        // this.image = productObj?.file[ 0 ];
         this.category_id = productObj?.category_id;
     }
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
+use App\Enums\Product\ProductStatusEnum;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Controllers\ApiBaseController;
 use App\Repositories\Contracts\ProductContract;
@@ -23,29 +24,23 @@ class ProductController extends ApiBaseController
     {
         $product = $this->productRepo->create($request->validated());
 
-        if ($request->has('image')) {
-            Media::find($request->image)->update([
-                'model_id' => $product->id,
-                'model_type' => $product::class
-            ]);
-        }
+        if ($request->has('image'))
+            Media::where('id', $request->image)->update(['model_id' => $product->id, 'model_type' => Product::class]);
 
-        return response()->json(['message' => 'Product created successfully.', 'product' => $product]);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
-    {
         return $this->respondWithSuccess(
-            data: ['product' => new ProductResource($product->fresh())]
+            __('created.product'),
+            ['product' => new ProductResource($product)]
         );
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
+    public function show(Product $product)
+    {
+        return $this->respondWithSuccess(
+            data: ['product' => new ProductResource($product)]
+        );
+    }
+
     public function update(StoreProductRequest $request, Product $product)
     {
         $product->update($request->validated());
@@ -64,7 +59,7 @@ class ProductController extends ApiBaseController
     public function getLatestProducts(Request $request)
     {
         $products = $this->productRepo->search(
-            filters: ['categoryBelong' => $request->category],
+            filters: ['categoryBelong' => $request->category, 'status' => ProductStatusEnum::PUBlISHED->value],
             relations: ['mainImage'],
             page: false,
             fields: ['id', 'name'],

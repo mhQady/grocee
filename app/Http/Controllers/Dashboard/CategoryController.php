@@ -33,7 +33,6 @@ class CategoryController extends ApiBaseController
     public function show($id)
     {
         return $this->respondWithModel(new CategoryResource($this->categoryRepo->retrieve('id', $id)));
-        // return response()->json(['data' => ]);
     }
 
     public function update(StoreCategoryRequest $request, Category $category)
